@@ -12,4 +12,6 @@
 #  updated_at :datetime         not null
 #
 class Post < ApplicationRecord
+  has_many :comments
+  belongs_to :source
 end

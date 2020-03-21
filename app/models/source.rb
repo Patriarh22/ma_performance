@@ -12,4 +12,5 @@
 #  updated_at :datetime         not null
 #
 class Source < ApplicationRecord
+  has_many :posts
 end

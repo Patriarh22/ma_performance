@@ -11,4 +11,5 @@
 #  updated_at :datetime         not null
 #
 class Comment < ApplicationRecord
+  belongs_to :post
 end
