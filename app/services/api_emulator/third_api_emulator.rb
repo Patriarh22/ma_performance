@@ -1,5 +1,5 @@
 class ApiEmulator
-  class ThirdSiteApiEmulator < ApiEmulator
+  class ThirdApiEmulator < ApiEmulator
     private
 
     def source_presentation_file
