@@ -1,5 +1,5 @@
-class ExternalApi
-  class SecondSiteApi < ExternalApi
+class ApiEmulator
+  class SecondSiteApiEmulator < ApiEmulator
     private
 
     def source_presentation_file

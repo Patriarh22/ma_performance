@@ -1,4 +1,4 @@
-class ExternalApi
+class ApiEmulator
   def fetch_all_posts
     sleep 1
     fetch_source_posts.compact
