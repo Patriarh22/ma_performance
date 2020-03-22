@@ -1,5 +1,5 @@
 class SecondSiteConnector
-  def fetch_posts
+  def fetch_all_posts
     ApiEmulator::SecondSiteApiEmulator.new.fetch_all_posts
   end
 

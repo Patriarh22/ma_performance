@@ -3,7 +3,7 @@ class ApiEmulator
     private
 
     def source_presentation_file
-      [Rails.root, 'config', 'second_site_data.yml'].join('/')
+      [Rails.root, 'data', 'second_site_data.yml'].join('/')
     end
   end
 end
