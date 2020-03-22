@@ -2,12 +2,27 @@ predefined_sources = [
   {
     name: 'First source',
     url: 'first-source.com',
-    connector: 'first_source'
+    connector: 'first'
   },
   {
     name: 'Second source',
     url: 'second-source.com',
-    connector: 'second_source'
+    connector: 'second'
+  },
+  {
+    name: 'Third source',
+    url: 'third-source.com',
+    connector: 'third'
+  },
+  {
+    name: 'Fourth source',
+    url: 'fourth-source.com',
+    connector: 'fourth'
+  },
+  {
+    name: 'Fifth source',
+    url: 'fifth-source.com',
+    connector: 'fifth'
   }
 ]
 
