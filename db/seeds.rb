@@ -1,7 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+predefined_sources = [
+  {
+    name: 'First source',
+    url: 'first-source.com',
+    connector: 'first_source'
+  },
+  {
+    name: 'Second source',
+    url: 'second-source.com',
+    connector: 'second_source'
+  }
+]
+
+existing_sources = Source.all
+
+predefined_sources.each do |new_source_data|
+  next if existing_sources.any? { |source| source.name == new_source_data[:name] }
+  Source.create(new_source_data)
+end
+
+p "All sources created"
