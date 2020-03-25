@@ -1,3 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: 'sources#index'
+
+  resources :sources, only: :index do
+    member do
+      get :sync_posts
+      get :sync_comments
+    end
+    resources :posts, only: :show
+  end
 end
