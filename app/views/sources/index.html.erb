@@ -1,0 +1,14 @@
+<h1>Sources</h1>
+<% @sources.each do |source| %>
+  <div>Name: <%= source.name %></div>
+  <div>URL: <%= source.url %></div>
+  <div>Synchronization date: <%= source.sync_date %></div>
+  <div><%= link_to 'Sync posts', sync_posts_source_path(source) %></div>
+  <div><%= link_to 'Sync comments', sync_comments_source_path(source) %></div>
+  <h2>Posts:</h2>
+  <% source.posts do |post| %>
+    <div>Title: <%= post.title %></div>
+    <div>Author: <%= post.author %></div>
+  <% end %>
+  -----------------------------
+<% end %>
