@@ -12,19 +12,25 @@
 #  updated_at :datetime         not null
 #
 class Source < ApplicationRecord
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   def sync_posts
     posts.destroy_all
-    connector_class = fetch_connector_class
-    return false unless connector_class
-    api_posts = connector_class.new.fetch_all_posts
+    api_posts = connector_instance&.fetch_all_posts || []
     api_posts.map(&method(:create_single_post)).all?(&:present?)
+  end
+
+  def sync_comments
+    posts.map { |post| post.sync_comments(connector_instance) }.all?(&:present?)
   end
 
   private
 
-  def fetch_connector_class
+  def connector_instance
+    @connector_instance ||= connector_class&.new
+  end
+
+  def connector_class
     connector_name = connector.to_s.classify
     "ApiConnector::#{connector_name}ApiConnector".constantize
   rescue NameError => _
