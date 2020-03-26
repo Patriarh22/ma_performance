@@ -14,6 +14,9 @@ class SourcesController < ApplicationController
   end
 
   def sync_comments
+    unless @source&.sync_comments
+      flash[:error] = "Something went wrong"
+    end
     redirect_to root_path
   end
 
