@@ -6,7 +6,7 @@ default: &default
 development:
   <<: *default
   host: db
-  port: 5432
-  database: ma_performance
-  username: postgres
-  password: password
+  port: <%= ENV.fetch("POSTGRES_PORT") %>
+  database: <%= ENV.fetch("POSTGRES_DB") %>
+  username: <%= ENV.fetch("POSTGRES_USER") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
