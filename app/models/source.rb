@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200315185934
+# Schema version: 20200328152957
 #
 # Table name: sources
 #
@@ -7,7 +7,6 @@
 #  name       :string
 #  url        :string
 #  connector  :string
-#  sync_date  :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,13 +14,16 @@ class Source < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   def sync_posts
+    return false unless connector_instance
     posts.destroy_all
-    api_posts = connector_instance&.fetch_all_posts || []
+    api_posts = connector_instance.fetch_all_posts || []
     api_posts.map(&method(:create_single_post)).all?(&:present?)
   end
 
   def sync_comments
-    posts.map { |post| post.sync_comments(connector_instance) }.all?(&:present?)
+    return false unless connector_instance
+    posts_synchronized = posts.map { |post| post.sync_comments(connector_instance) && post.touch(:sync_date) }
+    posts_synchronized.all?(&:present?)
   end
 
   private

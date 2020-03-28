@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200315185934
+# Schema version: 20200328152957
 #
 # Table name: sources
 #
@@ -7,7 +7,6 @@
 #  name       :string
 #  url        :string
 #  connector  :string
-#  sync_date  :datetime
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200321155123
+# Schema version: 20200328152957
 #
 # Table name: posts
 #
@@ -11,6 +11,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  handle     :string
+#  sync_date  :datetime
 #
 class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
@@ -22,6 +23,11 @@ class Post < ApplicationRecord
     comments.destroy_all
     post_comments = source_connector.fetch_post_comments(handle)
     post_comments.map(&method(:create_single_comment)).all?(&:present?)
+  end
+
+  def humanized_date_time
+    return '' unless sync_date
+    sync_date.strftime("%Y/%m/%d %H:%M")
   end
 
   private

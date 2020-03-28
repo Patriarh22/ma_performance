@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200321155123
+# Schema version: 20200328152957
 #
 # Table name: posts
 #
@@ -11,6 +11,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  handle     :string
+#  sync_date  :datetime
 #
 
 # This model initially had no columns defined. If you add columns to the
