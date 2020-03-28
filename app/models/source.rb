@@ -26,11 +26,11 @@ class Source < ApplicationRecord
     posts_synchronized.all?(&:present?)
   end
 
-  private
-
   def connector_instance
     @connector_instance ||= connector_class&.new
   end
+
+  private
 
   def connector_class
     connector_name = connector.to_s.classify
