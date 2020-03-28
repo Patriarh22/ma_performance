@@ -19,11 +19,4 @@ class SourcesController < ApplicationController
   def find_source
     @source = Source.find_by(id: params[:id])
   end
-
-  def redirect_to_root_path(synchronized)
-    unless synchronized
-      flash[:error] = "Something went wrong"
-    end
-    redirect_to root_path
-  end
 end
