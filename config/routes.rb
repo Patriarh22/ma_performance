@@ -6,6 +6,10 @@ Rails.application.routes.draw do
       get :sync_posts
       get :sync_comments
     end
-    resources :posts, only: :show
+    resources :posts, only: :show do
+      member do
+        get :sync_comments
+      end
+    end
   end
 end
