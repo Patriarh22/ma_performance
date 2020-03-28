@@ -7,22 +7,23 @@ class SourcesController < ApplicationController
   end
 
   def sync_posts
-    unless @source&.sync_posts
-      flash[:error] = "Something went wrong"
-    end
-    redirect_to root_path
+    redirect_to_root_path(@source&.sync_posts)
   end
 
   def sync_comments
-    unless @source&.sync_comments
-      flash[:error] = "Something went wrong"
-    end
-    redirect_to root_path
+    redirect_to_root_path(@source&.sync_comments)
   end
 
   private
 
   def find_source
     @source = Source.find_by(id: params[:id])
+  end
+
+  def redirect_to_root_path(synchronized)
+    unless synchronized
+      flash[:error] = "Something went wrong"
+    end
+    redirect_to root_path
   end
 end
