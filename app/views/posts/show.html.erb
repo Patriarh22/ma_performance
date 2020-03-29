@@ -6,8 +6,8 @@
 <p style="font-size:30px;"><b>Text:</b></p>
 <p style="font-size:26px; margin-left: 80px"><%= @post.body %></p>
 <p style="font-size:30px"><b>Comments:</b></p>
-<% @post.comments.each do |comment| %>
-  <p style="font-size:24px;margin-left: 80px"><b>Author:</b> <%= comment.author %></p>
-  <p style="font-size:24px;margin-left: 80px"><b>Text:</b> <%= comment.body %></p>
+<% @comments.each do |author, body| %>
+  <p style="font-size:24px;margin-left: 80px"><b>Author:</b> <%= author %></p>
+  <p style="font-size:24px;margin-left: 80px"><b>Text:</b> <%= body %></p>
   <p style="font-size: 50px"></p>
 <% end %>
