@@ -8,16 +8,16 @@
   <table style="margin-left: 70px;">
     <thead>
     <tr>
-      <td width="200px" style="font-size:24px"><b>Title:</b>
-      </td><td width="200px" style="font-size:24px"><b>Author:</b></td>
+      <td width="500px" style="font-size:24px"><b>Title:</b>
+      </td><td width="300px" style="font-size:24px"><b>Author:</b></td>
       <td width="300px" style="font-size:24px"><b>Synchronized at:</b></td>
     </tr>
     </thead>
     <tbody>
     <% source.posts.each do |post| %>
       <tr>
-        <td width="200px" style="font-size:24px"><%= link_to post.title, source_post_path(source, post) %></td>
-        <td width="200px" style="font-size:24px"><%= post.author %></td>
+        <td width="500px" style="font-size:24px"><%= link_to post.title, source_post_path(source, post) %></td>
+        <td width="300px" style="font-size:24px"><%= post.author %></td>
         <td width="300px" style="font-size:24px"><time><%= post.humanized_date_time %></time></td>
       </tr>
     <% end %>
