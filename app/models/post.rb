@@ -22,7 +22,8 @@ class Post < ApplicationRecord
     return false unless source_connector
     comments.destroy_all
     post_comments = source_connector.fetch_post_comments(handle)
-    post_comments.map(&method(:create_single_comment)).all?(&:present?)
+    comments_synchronized = post_comments.map(&method(:create_single_comment)).all?(&:present?)
+    comments_synchronized && touch(:sync_date)
   end
 
   def humanized_date_time

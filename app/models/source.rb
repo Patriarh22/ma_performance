@@ -22,7 +22,7 @@ class Source < ApplicationRecord
 
   def sync_comments
     return false unless connector_instance
-    posts_synchronized = posts.map { |post| post.sync_comments(connector_instance) && post.touch(:sync_date) }
+    posts_synchronized = posts.map { |post| post.sync_comments(connector_instance) }
     posts_synchronized.all?(&:present?)
   end
 
