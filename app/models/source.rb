@@ -16,7 +16,7 @@ class Source < ApplicationRecord
   def sync_posts
     return false unless connector_instance
     posts.destroy_all
-    api_posts = connector_instance.fetch_all_posts || []
+    api_posts = connector_instance.fetch_all_posts
     api_posts.map(&method(:create_single_post)).all?(&:present?)
   end
 
