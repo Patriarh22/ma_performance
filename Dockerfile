@@ -13,3 +13,5 @@ COPY Gemfile ./
 COPY Gemfile.lock ./
 
 RUN bundle check || bundle install
+
+COPY . /app

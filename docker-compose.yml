@@ -1,18 +1,5 @@
 version: '3'
 services:
-  webapp:
-    container_name: webapp
-    build: .
-    command: /bin/sh -c "bundle exec puma -t 6:24 -w 2"
-    volumes:
-      - .:/app:rw
-    ports:
-      - 3000:3000
-    tty: true
-    stdin_open: true
-    env_file: .env
-    depends_on:
-      - db
   db:
     container_name: db
     image: postgres:11.5-alpine
@@ -20,7 +7,44 @@ services:
       - 5439:5432
     volumes:
       - data-performance:/var/lib/postgresql/data
+      - performance-bundle:/bundle
+    env_file: .env
+  redis:
+    container_name: redis
+    image: redis:5-alpine
+    ports:
+      - 6378:6379
+    volumes:
+      - data-performance-redis:/data
+  webapp:
+    container_name: webapp
+    build: .
+    image: ma-performance
+    command: /bin/sh -c "bundle exec puma -t 6:24 -w 2"
+    volumes:
+      - .:/app:rw
+      - performance-bundle:/bundle
+    ports:
+      - 3000:3000
+    tty: true
+    stdin_open: true
+    env_file: .env
+    depends_on:
+      - db
+  sidekiq:
+    container_name: sidekiq
+    image: ma-performance
+    volumes:
+      - .:/myapp:rw
+    depends_on:
+      - redis
+      - db
+    command: /bin/sh -c "bundle exec sidekiq"
     env_file: .env
 volumes:
   data-performance:
+    driver: local
+  data-performance-redis:
+    driver: local
+  performance-bundle:
     driver: local
