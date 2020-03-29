@@ -1,0 +1,4 @@
+:concurrency: 5
+:queues:
+  - [api_sync, 2]
+  - [default, 1]

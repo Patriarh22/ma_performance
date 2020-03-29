@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
+
 Rails.application.routes.draw do
   root to: 'sources#index'
 
@@ -12,4 +15,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 end
