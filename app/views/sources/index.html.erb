@@ -2,8 +2,12 @@
 <% @sources.each do |source| %>
   <p style="font-size:30px;"><b>Name:</b> <%= source.name %></p>
   <p style="font-size:30px;"><b>URL:</b> <%= source.url %></p>
-  <p><%= button_to 'Synchronize posts', sync_posts_source_path(source), method: :get %></p>
-  <p><%= button_to 'Synchronize comments', sync_comments_source_path(source), method: :get %></p>
+  <% if source.synchronizing? %>
+    <p style="font-size:30px;color: green">Synchronization</p>
+  <% else %>
+    <p><%= button_to 'Synchronize posts', sync_posts_source_path(source), method: :get %></p>
+    <p><%= button_to 'Synchronize comments', sync_comments_source_path(source), method: :get %></p>
+  <% end %>
   <p style="font-size:30px;"><b>Posts:</b></p>
   <table style="margin-left: 70px;">
     <thead>

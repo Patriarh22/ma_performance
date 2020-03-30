@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200328152957
+# Schema version: 20200330193418
 #
 # Table name: sources
 #
@@ -9,6 +9,7 @@
 #  connector  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer          default("0")
 #
 require 'test_helper'
 

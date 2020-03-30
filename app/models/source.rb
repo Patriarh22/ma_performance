@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200328152957
+# Schema version: 20200330193418
 #
 # Table name: sources
 #
@@ -9,15 +9,18 @@
 #  connector  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer          default("0")
 #
 class Source < ApplicationRecord
   has_many :posts, dependent: :destroy
 
+  enum status: %i[pending synchronizing synchronized]
+
   def sync_posts
     return false unless connector_instance
-    posts.destroy_all
-    api_posts = connector_instance.fetch_all_posts
-    api_posts.map(&method(:create_single_post)).all?(&:present?)
+    synchronizing!
+    SyncSourcePostsJob.perform_later(source_id: id)
+    true
   end
 
   def sync_comments
@@ -37,10 +40,5 @@ class Source < ApplicationRecord
     "ApiConnector::#{connector_name}ApiConnector".constantize
   rescue NameError => _
     nil
-  end
-
-  def create_single_post(post_data)
-    post = posts.new(post_data)
-    post.save
   end
 end
