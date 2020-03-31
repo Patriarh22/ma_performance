@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :find_post
 
   def show
+    @title = 'Post'
     redirect_to_root_path(false) unless @post
     @comments = @post.comments.pluck(:author, :body)
   end
