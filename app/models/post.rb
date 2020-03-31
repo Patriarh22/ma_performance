@@ -20,7 +20,7 @@ class Post < ApplicationRecord
 
   enum status: %i[pending synchronizing synchronized]
 
-  def sync_comments(source_connector = nil)
+  def sync_comments
     synchronizing!
     SyncCommentsJob.perform_later(source_id: source_id, post_id: id)
   end
