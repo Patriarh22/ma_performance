@@ -2,12 +2,16 @@
 <p style="font-size:30px;"><b>Title:</b> <%= @post.title %></p>
 <p style="font-size:30px;"><b>Author:</b> <%= @post.author %></p>
 <p style="font-size:30px;"><b>Synchronized at:</b> <time><%= @post.humanized_date_time %></time></p>
-<p><%= button_to 'Synchronize comments', sync_comments_source_post_path(@post.source_id, @post), method: :get %></p>
+<% if @post.synchronizing? %>
+  <p style="font-size:30px;color: green">Synchronization</p>
+<% else %>
+  <p><%= button_to 'Synchronize comments', sync_comments_source_post_path(@post.source_id, @post), method: :get %></p>
+<% end %>
 <p style="font-size:30px;"><b>Text:</b></p>
 <p style="font-size:26px; margin-left: 80px"><%= @post.body %></p>
 <p style="font-size:30px"><b>Comments:</b></p>
-<% @post.comments.each do |comment| %>
-  <p style="font-size:24px;margin-left: 80px"><b>Author:</b> <%= comment.author %></p>
-  <p style="font-size:24px;margin-left: 80px"><b>Text:</b> <%= comment.body %></p>
+<% @comments.each do |author, body| %>
+  <p style="font-size:24px;margin-left: 80px"><b>Author:</b> <%= author %></p>
+  <p style="font-size:24px;margin-left: 80px"><b>Text:</b> <%= body %></p>
   <p style="font-size: 50px"></p>
 <% end %>

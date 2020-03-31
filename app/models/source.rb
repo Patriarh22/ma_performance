@@ -13,17 +13,26 @@
 class Source < ApplicationRecord
   has_many :posts, dependent: :destroy
 
+  enum status: %i[pending synchronizing synchronized]
+
   def sync_posts
     return false unless connector_instance
-    posts.destroy_all
-    api_posts = connector_instance.fetch_all_posts
-    api_posts.map(&method(:create_single_post)).all?(&:present?)
+    synchronizing!
+    SyncSourcePostsJob.perform_later(source_id: id)
+    true
+    # posts.destroy_all
+    # api_posts = connector_instance.fetch_all_posts
+    # api_posts.map(&method(:create_single_post)).all?(&:present?)
   end
 
   def sync_comments
     return false unless connector_instance
-    posts_synchronized = posts.map { |post| post.sync_comments(connector_instance) }
-    posts_synchronized.all?(&:present?)
+    synchronizing!
+    posts.update_all(status: :synchronizing)
+    SyncCommentsJob.perform_later(source_id: id)
+    true
+    # posts_synchronized = posts.map { |post| post.sync_comments(connector_instance) }
+    # posts_synchronized.all?(&:present?)
   end
 
   def connector_instance

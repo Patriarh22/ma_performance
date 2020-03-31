@@ -17,13 +17,17 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   belongs_to :source
 
+  enum status: %i[pending synchronizing synchronized]
+
   def sync_comments(source_connector = nil)
     source_connector ||= source.connector_instance
     return false unless source_connector
-    comments.destroy_all
-    post_comments = source_connector.fetch_post_comments(handle)
-    comments_synchronized = post_comments.map(&method(:create_single_comment)).all?(&:present?)
-    comments_synchronized && touch(:sync_date)
+    # comments.destroy_all
+    # post_comments = source_connector.fetch_post_comments(handle)
+    # comments_synchronized = post_comments.map(&method(:create_single_comment)).all?(&:present?)
+    # comments_synchronized && touch(:sync_date)
+    synchronizing!
+    SyncCommentsJob.perform_later(source_id: source_id, post_id: id)
   end
 
   def humanized_date_time

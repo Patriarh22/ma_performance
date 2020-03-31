@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   def show
     @title = 'Post'
     redirect_to_root_path(false) unless @post
+    @comments = @post.comments.pluck(:author, :body)
   end
 
   def sync_comments

@@ -3,7 +3,7 @@ class SourcesController < ApplicationController
 
   def index
     @title = 'Sources'
-    @sources = Source.order(created_at: :asc).all
+    @sources = Source.includes(:posts).order(created_at: :asc).all
   end
 
   def sync_posts
