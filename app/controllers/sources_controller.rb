@@ -11,6 +11,7 @@ class SourcesController < ApplicationController
   end
 
   def sync_comments
+    @source&.synchronizing!
     redirect_to_root_path(@source&.sync_comments)
   end
 
