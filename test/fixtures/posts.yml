@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200331092951
+# Schema version: 20200331111411
 #
 # Table name: posts
 #
@@ -7,12 +7,12 @@
 #  title      :string
 #  body       :text
 #  author     :string
-#  source_id  :integer
+#  source_id  :integer          indexed, indexed => [handle], indexed => [status]
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  handle     :string
+#  handle     :string           indexed => [source_id]
 #  sync_date  :datetime
-#  status     :integer          default("0")
+#  status     :integer          default("0"), indexed => [source_id]
 #
 
 # This model initially had no columns defined. If you add columns to the

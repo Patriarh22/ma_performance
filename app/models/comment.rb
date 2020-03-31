@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20200321143709
+# Schema version: 20200331111411
 #
 # Table name: comments
 #
 #  id         :bigint           not null, primary key
 #  author     :string
 #  body       :text
-#  post_id    :integer
+#  post_id    :integer          indexed
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
