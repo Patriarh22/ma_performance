@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20200328152957
+# Schema version: 20200331092951
 #
 # Table name: posts
 #
@@ -12,6 +12,7 @@
 #  updated_at :datetime         not null
 #  handle     :string
 #  sync_date  :datetime
+#  status     :integer          default("0")
 #
 require 'test_helper'
 

@@ -25,8 +25,10 @@ class Source < ApplicationRecord
 
   def sync_comments
     return false unless connector_instance
-    posts_synchronized = posts.map { |post| post.sync_comments(connector_instance) }
-    posts_synchronized.all?(&:present?)
+    synchronizing!
+    posts.update_all(status: :synchronizing)
+    SyncCommentsJob.perform_later(source_id: id)
+    true
   end
 
   def connector_instance
